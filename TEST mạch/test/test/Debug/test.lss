@@ -1,0 +1,189 @@
+
+test.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000f8  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000014c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000014c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000017c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000060  00000000  00000000  000001b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006b0  00000000  00000000  00000218  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000554  00000000  00000000  000008c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000032c  00000000  00000000  00000e1c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000ec  00000000  00000000  00001148  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003cf  00000000  00000000  00001234  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000113  00000000  00000000  00001603  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  00001716  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	47 c0       	rjmp	.+142    	; 0x92 <__vector_1>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	0b d0       	rcall	.+22     	; 0x4a <main>
+  34:	5f c0       	rjmp	.+190    	; 0xf4 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <_Z13interruptinitv>:
+  38:	8e 98       	cbi	0x11, 6	; 17
+  3a:	85 b7       	in	r24, 0x35	; 53
+  3c:	82 60       	ori	r24, 0x02	; 2
+  3e:	85 bf       	out	0x35, r24	; 53
+  40:	8b b7       	in	r24, 0x3b	; 59
+  42:	80 64       	ori	r24, 0x40	; 64
+  44:	8b bf       	out	0x3b, r24	; 59
+  46:	78 94       	sei
+  48:	08 95       	ret
+
+0000004a <main>:
+  4a:	f6 df       	rcall	.-20     	; 0x38 <_Z13interruptinitv>
+  4c:	ff cf       	rjmp	.-2      	; 0x4c <main+0x2>
+
+0000004e <_Z6onRungv>:
+  4e:	84 b3       	in	r24, 0x14	; 20
+  50:	83 60       	ori	r24, 0x03	; 3
+  52:	84 bb       	out	0x14, r24	; 20
+  54:	a8 9a       	sbi	0x15, 0	; 21
+  56:	08 95       	ret
+
+00000058 <_Z7offRungv>:
+  58:	a8 98       	cbi	0x15, 0	; 21
+  5a:	08 95       	ret
+
+0000005c <_Z6onBuzzv>:
+  5c:	84 b3       	in	r24, 0x14	; 20
+  5e:	8c 60       	ori	r24, 0x0C	; 12
+  60:	84 bb       	out	0x14, r24	; 20
+  62:	ab 9a       	sbi	0x15, 3	; 21
+  64:	08 95       	ret
+
+00000066 <_Z7offBuzzv>:
+  66:	ab 98       	cbi	0x15, 3	; 21
+  68:	08 95       	ret
+
+0000006a <_Z5onLedv>:
+  6a:	84 b3       	in	r24, 0x14	; 20
+  6c:	80 63       	ori	r24, 0x30	; 48
+  6e:	84 bb       	out	0x14, r24	; 20
+  70:	84 b3       	in	r24, 0x14	; 20
+  72:	83 6f       	ori	r24, 0xF3	; 243
+  74:	84 bb       	out	0x14, r24	; 20
+  76:	85 b3       	in	r24, 0x15	; 21
+  78:	80 63       	ori	r24, 0x30	; 48
+  7a:	85 bb       	out	0x15, r24	; 21
+  7c:	82 b3       	in	r24, 0x12	; 18
+  7e:	83 6f       	ori	r24, 0xF3	; 243
+  80:	82 bb       	out	0x12, r24	; 18
+  82:	08 95       	ret
+
+00000084 <_Z6offLedv>:
+  84:	85 b3       	in	r24, 0x15	; 21
+  86:	8f 7c       	andi	r24, 0xCF	; 207
+  88:	85 bb       	out	0x15, r24	; 21
+  8a:	82 b3       	in	r24, 0x12	; 18
+  8c:	8c 70       	andi	r24, 0x0C	; 12
+  8e:	82 bb       	out	0x12, r24	; 18
+  90:	08 95       	ret
+
+00000092 <__vector_1>:
+  92:	1f 92       	push	r1
+  94:	0f 92       	push	r0
+  96:	0f b6       	in	r0, 0x3f	; 63
+  98:	0f 92       	push	r0
+  9a:	11 24       	eor	r1, r1
+  9c:	2f 93       	push	r18
+  9e:	3f 93       	push	r19
+  a0:	4f 93       	push	r20
+  a2:	5f 93       	push	r21
+  a4:	6f 93       	push	r22
+  a6:	7f 93       	push	r23
+  a8:	8f 93       	push	r24
+  aa:	9f 93       	push	r25
+  ac:	af 93       	push	r26
+  ae:	bf 93       	push	r27
+  b0:	ef 93       	push	r30
+  b2:	ff 93       	push	r31
+  b4:	cc df       	rcall	.-104    	; 0x4e <_Z6onRungv>
+  b6:	d2 df       	rcall	.-92     	; 0x5c <_Z6onBuzzv>
+  b8:	d8 df       	rcall	.-80     	; 0x6a <_Z5onLedv>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ba:	2f eb       	ldi	r18, 0xBF	; 191
+  bc:	87 e2       	ldi	r24, 0x27	; 39
+  be:	99 e0       	ldi	r25, 0x09	; 9
+  c0:	21 50       	subi	r18, 0x01	; 1
+  c2:	80 40       	sbci	r24, 0x00	; 0
+  c4:	90 40       	sbci	r25, 0x00	; 0
+  c6:	e1 f7       	brne	.-8      	; 0xc0 <__vector_1+0x2e>
+  c8:	00 c0       	rjmp	.+0      	; 0xca <__vector_1+0x38>
+  ca:	00 00       	nop
+  cc:	db df       	rcall	.-74     	; 0x84 <_Z6offLedv>
+  ce:	c4 df       	rcall	.-120    	; 0x58 <_Z7offRungv>
+  d0:	ca df       	rcall	.-108    	; 0x66 <_Z7offBuzzv>
+  d2:	ff 91       	pop	r31
+  d4:	ef 91       	pop	r30
+  d6:	bf 91       	pop	r27
+  d8:	af 91       	pop	r26
+  da:	9f 91       	pop	r25
+  dc:	8f 91       	pop	r24
+  de:	7f 91       	pop	r23
+  e0:	6f 91       	pop	r22
+  e2:	5f 91       	pop	r21
+  e4:	4f 91       	pop	r20
+  e6:	3f 91       	pop	r19
+  e8:	2f 91       	pop	r18
+  ea:	0f 90       	pop	r0
+  ec:	0f be       	out	0x3f, r0	; 63
+  ee:	0f 90       	pop	r0
+  f0:	1f 90       	pop	r1
+  f2:	18 95       	reti
+
+000000f4 <_exit>:
+  f4:	f8 94       	cli
+
+000000f6 <__stop_program>:
+  f6:	ff cf       	rjmp	.-2      	; 0xf6 <__stop_program>
